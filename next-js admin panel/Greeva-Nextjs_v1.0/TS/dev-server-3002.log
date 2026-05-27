@@ -1,0 +1,157 @@
+
+> greevanext@0.1.0 dev
+> next dev --turbopack -p 3002
+
+   ▲ Next.js 15.2.1 (Turbopack)
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.1.13:3002
+
+ ✓ Starting...
+Creating turbopack project {
+  dir: 'C:\\Users\\anshi\\OneDrive\\Desktop\\prodect\\backend\\next-js admin panel\\Greeva-Nextjs_v1.0\\TS',
+  testMode: true
+}
+ ✓ Compiled in 681ms
+ ✓ Ready in 2.5s
+ ○ Compiling /media ...
+ ✓ Compiled /media in 9.4s
+ GET /media 200 in 10869ms
+ GET /forms/layout 200 in 11278ms
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.4s
+ GET /dashboard 200 in 2878ms
+ ○ Compiling /auth/login ...
+ GET /auth/login?redirectTo=%2Fdashboard 200 in 6884ms
+ GET /calendar 200 in 11132ms
+ GET /calendar 200 in 1282ms
+ GET /posts 200 in 10468ms
+ ✓ Compiled /auth/login in 19.7s
+ GET /leads 200 in 9846ms
+ GET /posts 200 in 1523ms
+ GET /leads 200 in 1466ms
+ GET /posts 200 in 1299ms
+ GET /leads 200 in 1240ms
+ ○ Compiling /solutions ...
+ GET /posts 200 in 1799ms
+ GET /leads 200 in 1902ms
+ GET /posts 200 in 2919ms
+ GET /leads 200 in 2914ms
+ GET /media 200 in 2123ms
+ GET /posts 200 in 1955ms
+ GET /leads 200 in 1590ms
+ GET /posts 200 in 1519ms
+ GET /media 200 in 1613ms
+ GET /leads 200 in 1288ms
+ GET /media 200 in 1069ms
+ ✓ Compiled /solutions in 8.4s
+ GET /leads 200 in 1816ms
+ GET /solutions 200 in 9641ms
+ GET /media 200 in 1665ms
+ GET /media 200 in 968ms
+ GET /auth/login?redirectTo=%2Fmedia 200 in 299ms
+ GET /dashboard 200 in 253ms
+ ○ Compiling /email ...
+ GET /calendar 200 in 777ms
+ ✓ Compiled /email in 6.3s
+ GET /email 200 in 6632ms
+ GET /email 200 in 187ms
+ GET /posts 200 in 311ms
+ GET /solutions 200 in 223ms
+ ○ Compiling /brands ...
+ ✓ Compiled /brands in 2.3s
+ GET /brands 200 in 2628ms
+ GET /leads 200 in 270ms
+ ○ Compiling /downloads ...
+ ✓ Compiled /downloads in 2.1s
+ GET /downloads 200 in 2358ms
+ GET /media 200 in 127ms
+ ○ Compiling /users ...
+ ✓ Compiled /users in 1691ms
+ GET /users 200 in 1854ms
+ ○ Compiling /invoices ...
+ ✓ Compiled /invoices in 1839ms
+ GET /invoices 200 in 2442ms
+ ○ Compiling /invoices/create-invoices ...
+ ✓ Compiled /invoices/create-invoices in 2.3s
+ GET /invoices/create-invoices 200 in 2571ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 7.5s
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 9460ms
+ ✓ Compiled in 44.7s
+ GET /invoices/create-invoices 200 in 9078ms
+ GET /invoices/create-invoices 200 in 9808ms
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 1656ms
+ ○ Compiling /charts/area ...
+ GET /downloads 200 in 4492ms
+ ✓ Compiled /charts/area in 20.7s
+ GET /downloads 200 in 1762ms
+ GET /charts/area 200 in 21745ms
+ GET /errors/error-401 200 in 9323ms
+ GET /downloads 200 in 1357ms
+ GET /charts/area 200 in 1244ms
+ GET /charts/area 200 in 876ms
+ GET /downloads 200 in 1011ms
+ GET /downloads 200 in 817ms
+ GET /charts/area 200 in 972ms
+ GET /downloads 200 in 916ms
+ GET /charts/area 200 in 895ms
+ GET /downloads 200 in 1643ms
+ GET /charts/area 200 in 1569ms
+ GET /users 200 in 1679ms
+ GET /users 200 in 785ms
+ GET /downloads 200 in 1309ms
+ GET /users 200 in 1149ms
+ GET /downloads 200 in 1217ms
+ GET /users 200 in 1055ms
+ GET /downloads 200 in 1001ms
+ GET /downloads 200 in 760ms
+ GET /users 200 in 867ms
+ GET /downloads 200 in 674ms
+ GET /downloads 200 in 890ms
+ GET /downloads 200 in 1336ms
+ GET /calendar 200 in 1598ms
+ GET /downloads 200 in 1490ms
+ GET /calendar 200 in 1315ms
+ GET /downloads 200 in 1124ms
+ GET /calendar 200 in 1112ms
+ GET /downloads 200 in 937ms
+ GET /calendar 200 in 1088ms
+ GET /downloads 200 in 1037ms
+ GET /calendar 200 in 992ms
+ GET /calendar 200 in 804ms
+ GET /calendar 200 in 776ms
+ GET /calendar 200 in 908ms
+ GET /dashboard 200 in 1981ms
+ GET /calendar 200 in 1363ms
+ GET /dashboard 200 in 1474ms
+ GET /calendar 200 in 1420ms
+ GET /dashboard 200 in 1630ms
+ ○ Compiling /file-manager ...
+ GET /calendar 200 in 2334ms
+ GET /email 200 in 3107ms
+ GET /dashboard 200 in 2207ms
+ GET /email 200 in 2217ms
+ GET /dashboard 200 in 2397ms
+ GET /posts 200 in 3185ms
+ GET /posts 200 in 1327ms
+ GET /brands 200 in 1793ms
+ GET /brands 200 in 996ms
+ ✓ Compiled /file-manager in 8.7s
+ GET /file-manager 200 in 9976ms
+ GET /brands 200 in 1901ms
+ GET /file-manager 200 in 1614ms
+ GET /brands 200 in 1412ms
+ GET /brands 200 in 1892ms
+ GET /leads 200 in 1531ms
+ GET /brands 200 in 1464ms
+ GET /brands 200 in 1043ms
+ GET /brands 200 in 1021ms
+ GET /brands 200 in 605ms
+ GET /posts 200 in 455ms
+ GET /file-manager 200 in 680ms
+ GET /file-manager 200 in 638ms
+ GET /file-manager 200 in 745ms
+ GET /file-manager 200 in 761ms
+ GET /posts 200 in 802ms
+ GET /calendar 200 in 1747ms
+[?25h

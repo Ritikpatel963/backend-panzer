@@ -1,0 +1,8 @@
+ ⨯ ./src/app/(admin)/settings/color-theme/ColorThemeSettingsPanel.module.scss
+Module not found: Can't resolve 'C:\Users\anshi\OneDrive\Desktop\prodect\backend\next-js admin panel\Greeva-Nextjs_v1.0\TS\src\app\(admin)\settings\color-theme\ColorThemeSettingsPanel.module.scss'
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/(admin)/settings/color-theme/ColorThemeSettingsPanel.tsx
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\anshi\OneDrive\Desktop\prodect\backend\next-js admin panel\Greeva-Nextjs_v1.0\TS\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\anshi\OneDrive\Desktop\prodect\backend\next-js admin panel\Greeva-Nextjs_v1.0\TS\.next\cache\webpack\client-development\0.pack.gz'
