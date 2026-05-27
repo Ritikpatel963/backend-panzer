@@ -2,7 +2,7 @@
 
 import IconifyIcon from '@/components/wrappers/IconifyIcon'
 import clsx from 'clsx'
-import { type CSSProperties, useEffect, useMemo, useState } from 'react'
+import { type CSSProperties, type DragEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import styles from './FontSettingsPanel.module.scss'
 
@@ -22,6 +22,30 @@ type FontSettings = {
   lineHeights: Record<LineHeightKey, number>
   spacing: Record<SpacingKey, number>
   transforms: Record<TransformKey, TextTransform>
+}
+
+// Uploaded custom font entry
+interface UploadedFont {
+  id: string
+  name: string        // derived from filename, e.g. "MyFont"
+  fileName: string    // original filename, e.g. "MyFont-Regular.ttf"
+  objectUrl: string   // blob URL for @font-face src
+  format: string      // 'truetype' | 'opentype' | 'woff' | 'woff2'
+}
+
+const ACCEPTED_FONT_TYPES = ['.ttf', '.otf', '.woff', '.woff2']
+const ACCEPTED_MIME_TYPES = ['font/ttf', 'font/otf', 'font/woff', 'font/woff2', 'application/x-font-ttf', 'application/x-font-otf', 'application/font-woff', 'application/font-woff2']
+
+const fontFormatMap: Record<string, string> = {
+  ttf: 'truetype',
+  otf: 'opentype',
+  woff: 'woff',
+  woff2: 'woff2',
+}
+
+const deriveFontName = (fileName: string): string => {
+  // Strip extension, replace hyphens/underscores with spaces, trim
+  return fileName.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ').trim()
 }
 
 const fontOptions = ['Poppins', 'Roboto', 'Inter', 'Montserrat', 'Lato', 'Open Sans', 'Playfair Display', 'Raleway', 'Nunito', 'Source Sans Pro']
@@ -173,6 +197,7 @@ const presets: { name: string; description: string; sample: string; settings: Fo
 
 const sectionMeta: Record<string, { icon: string; subtitle: string }> = {
   family: { icon: 'tabler:typography', subtitle: 'Choose fonts for each typography role' },
+  upload: { icon: 'tabler:upload', subtitle: 'Upload your own .ttf, .otf, .woff or .woff2 font files' },
   size: { icon: 'tabler:text-size', subtitle: 'Control scale across the interface' },
   weight: { icon: 'tabler:bold', subtitle: 'Set emphasis for important text' },
   height: { icon: 'tabler:line-height', subtitle: 'Tune vertical reading rhythm' },
@@ -197,6 +222,12 @@ const SectionTitle = ({ title, metaKey }: { title: string; metaKey: keyof typeof
 const FontSettingsPanel = () => {
   const [settings, setSettings] = useState<FontSettings>(defaultSettings)
   const [darkMode, setDarkMode] = useState(false)
+  const [uploadedFonts, setUploadedFonts] = useState<UploadedFont[]>([])
+  const [isDragOver, setIsDragOver] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // All available font names (built-in + uploaded)
+  const allFontOptions = useMemo(() => [...fontOptions, ...uploadedFonts.map((f) => f.name)], [uploadedFonts])
 
   useEffect(() => {
     const fontQuery = fontOptions.map((font) => `family=${font.replaceAll(' ', '+')}:wght@400;500;600;700`).join('&')
@@ -214,6 +245,96 @@ const FontSettingsPanel = () => {
     link.href = href
     document.head.appendChild(link)
   }, [])
+
+  // Inject @font-face rules for uploaded fonts into document <head>
+  useEffect(() => {
+    uploadedFonts.forEach((font) => {
+      const styleId = `custom-font-${font.id}`
+      if (document.getElementById(styleId)) return
+      const style = document.createElement('style')
+      style.id = styleId
+      style.textContent = `@font-face { font-family: "${font.name}"; src: url("${font.objectUrl}") format("${font.format}"); font-weight: normal; font-style: normal; }`
+      document.head.appendChild(style)
+    })
+  }, [uploadedFonts])
+
+  const processFiles = (files: FileList | File[]) => {
+    const fileArray = Array.from(files)
+    const valid = fileArray.filter((file) => {
+      const ext = file.name.split('.').pop()?.toLowerCase() ?? ''
+      return ACCEPTED_FONT_TYPES.includes(`.${ext}`) || ACCEPTED_MIME_TYPES.includes(file.type)
+    })
+
+    if (valid.length === 0) {
+      toast.error('Please upload a valid font file (.ttf, .otf, .woff, .woff2)')
+      return
+    }
+
+    const newFonts: UploadedFont[] = valid.map((file) => {
+      const ext = file.name.split('.').pop()?.toLowerCase() ?? 'ttf'
+      const name = deriveFontName(file.name)
+      return {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+        name,
+        fileName: file.name,
+        objectUrl: URL.createObjectURL(file),
+        format: fontFormatMap[ext] ?? 'truetype',
+      }
+    })
+
+    setUploadedFonts((prev) => {
+      // Avoid duplicates by filename
+      const existingNames = new Set(prev.map((f) => f.fileName))
+      const unique = newFonts.filter((f) => !existingNames.has(f.fileName))
+      if (unique.length < newFonts.length) {
+        toast.warn('Some fonts were already uploaded and skipped')
+      }
+      if (unique.length > 0) {
+        toast.success(`${unique.length} font${unique.length > 1 ? 's' : ''} uploaded successfully`)
+      }
+      return [...prev, ...unique]
+    })
+  }
+
+  const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) processFiles(event.target.files)
+    // Reset input so same file can be re-uploaded if removed
+    event.target.value = ''
+  }
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragOver(false)
+    if (event.dataTransfer.files) processFiles(event.dataTransfer.files)
+  }
+
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragOver(true)
+  }
+
+  const handleDragLeave = () => setIsDragOver(false)
+
+  const removeUploadedFont = (id: string) => {
+    setUploadedFonts((prev) => {
+      const font = prev.find((f) => f.id === id)
+      if (font) {
+        URL.revokeObjectURL(font.objectUrl)
+        // Remove injected style tag
+        document.getElementById(`custom-font-${font.id}`)?.remove()
+        // Reset any font slot using this font back to Inter
+        setSettings((s) => {
+          const updatedFonts = { ...s.fonts }
+          for (const key of Object.keys(updatedFonts) as FontKey[]) {
+            if (updatedFonts[key] === font.name) updatedFonts[key] = 'Inter'
+          }
+          return { ...s, fonts: updatedFonts }
+        })
+      }
+      return prev.filter((f) => f.id !== id)
+    })
+    toast.success('Font removed')
+  }
 
   const cssVariables = useMemo(
     () => `--font-primary: "${settings.fonts.primary}", sans-serif;
@@ -335,16 +456,90 @@ const FontSettingsPanel = () => {
                 <label className={styles.fontField} key={field.key}>
                   <span>{field.label}</span>
                   <select value={settings.fonts[field.key]} onChange={(event) => updateFont(field.key, event.target.value)} style={{ fontFamily: `"${settings.fonts[field.key]}", sans-serif` }}>
-                    {fontOptions.map((font) => (
-                      <option key={font} value={font} style={{ fontFamily: `"${font}", sans-serif` }}>
-                        {font}
-                      </option>
-                    ))}
+                    <optgroup label="Built-in Fonts">
+                      {fontOptions.map((font) => (
+                        <option key={font} value={font} style={{ fontFamily: `"${font}", sans-serif` }}>
+                          {font}
+                        </option>
+                      ))}
+                    </optgroup>
+                    {uploadedFonts.length > 0 && (
+                      <optgroup label="Your Uploaded Fonts">
+                        {uploadedFonts.map((font) => (
+                          <option key={font.id} value={font.name} style={{ fontFamily: `"${font.name}", sans-serif` }}>
+                            {font.name} (custom)
+                          </option>
+                        ))}
+                      </optgroup>
+                    )}
                   </select>
                   <small style={{ fontFamily: `"${settings.fonts[field.key]}", sans-serif` }}>The quick brown fox previews this font.</small>
                 </label>
               ))}
             </div>
+          </section>
+
+          {/* ── Custom Font Upload ── */}
+          <section className={styles.panel}>
+            <SectionTitle title="Upload Custom Font" metaKey="upload" />
+
+            {/* Drop zone */}
+            <div
+              className={clsx(styles.dropZone, isDragOver && styles.dropZoneActive)}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onClick={() => fileInputRef.current?.click()}
+              role="button"
+              tabIndex={0}
+              aria-label="Upload font files"
+              onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".ttf,.otf,.woff,.woff2"
+                multiple
+                className={styles.hiddenInput}
+                onChange={handleFileInput}
+                aria-hidden="true"
+              />
+              <span className={styles.dropIcon}>
+                <IconifyIcon icon={isDragOver ? 'tabler:file-download' : 'tabler:upload'} />
+              </span>
+              <strong>{isDragOver ? 'Drop to upload' : 'Drag & drop font files here'}</strong>
+              <span>or click to browse &mdash; .ttf, .otf, .woff, .woff2 supported</span>
+            </div>
+
+            {/* Uploaded font list */}
+            {uploadedFonts.length > 0 && (
+              <div className={styles.uploadedList}>
+                <p className={styles.subtleLabel}>{uploadedFonts.length} custom font{uploadedFonts.length > 1 ? 's' : ''} uploaded</p>
+                {uploadedFonts.map((font) => (
+                  <div key={font.id} className={styles.uploadedItem}>
+                    <span className={styles.uploadedIcon}>
+                      <IconifyIcon icon="tabler:file-type-ttf" />
+                    </span>
+                    <div className={styles.uploadedMeta}>
+                      <strong style={{ fontFamily: `"${font.name}", sans-serif` }}>{font.name}</strong>
+                      <small>{font.fileName} &middot; {font.format}</small>
+                      <em style={{ fontFamily: `"${font.name}", sans-serif` }}>
+                        The quick brown fox jumps over the lazy dog
+                      </em>
+                    </div>
+                    <button
+                      type="button"
+                      className={styles.removeFont}
+                      onClick={(e) => { e.stopPropagation(); removeUploadedFont(font.id) }}
+                      aria-label={`Remove ${font.name}`}
+                      title="Remove font"
+                    >
+                      <IconifyIcon icon="tabler:x" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
 
           <section className={styles.panel}>
