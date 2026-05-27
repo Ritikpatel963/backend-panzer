@@ -1,20 +1,8 @@
-import PageTitle from '@/components/PageTitle'
-import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
-export const metadata: Metadata = { title: 'Footer Settings' }
-
+// Header & Footer settings are combined on one page
 const FooterSettingsPage = () => {
-  return (
-    <>
-      <PageTitle title="Footer" subTitle="Setting" />
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title mb-3">Footer Settings</h5>
-          <p className="text-muted mb-0">Manage footer text, links, and copyright content from here.</p>
-        </div>
-      </div>
-    </>
-  )
+  redirect('/settings/header')
 }
 
 export default FooterSettingsPage

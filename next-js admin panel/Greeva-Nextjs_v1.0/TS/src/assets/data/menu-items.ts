@@ -117,14 +117,8 @@ const MENU_ITEMS_DATA: MenuItemType[] = [
     children: [
       {
         key: 'settings-header',
-        label: 'Header',
+        label: 'Header & Footer',
         url: '/settings/header',
-        parentKey: 'settings',
-      },
-      {
-        key: 'settings-footer',
-        label: 'Footer',
-        url: '/settings/footer',
         parentKey: 'settings',
       },
       {

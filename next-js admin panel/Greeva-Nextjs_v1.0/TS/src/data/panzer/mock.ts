@@ -12,7 +12,11 @@ export type Post = {
 export type Solution = {
   id: string
   title: string
+  subtitle: string
+  description: string
   category: string
+  image: string
+  slug: string
   order: number
   status: 'active' | 'inactive'
 }
@@ -75,9 +79,105 @@ export const MOCK_POSTS: Post[] = [
 ]
 
 export const MOCK_SOLUTIONS: Solution[] = [
-  { id: 's1', title: 'Vulnerability Assessment', category: 'Security', order: 1, status: 'active' },
-  { id: 's2', title: 'Penetration Testing', category: 'Security', order: 2, status: 'active' },
-  { id: 's3', title: 'SOC Monitoring', category: 'Operations', order: 3, status: 'inactive' },
+  {
+    id: 's1',
+    title: 'Scoped DLP with UEBA',
+    subtitle: 'Data Leak Prevention',
+    description: 'Protect sensitive data with user behavior analytics, policy-driven control and visibility across endpoints and business workflows.',
+    category: 'Data Protection',
+    image: '/assets/images/service/leak.webp',
+    slug: 'scoped-dlp-ueba',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 's2',
+    title: 'Vulnerability Scanner, Assessment & VAPT',
+    subtitle: 'Security Assessment',
+    description: 'Identify exploitable weaknesses before attackers do with guided vulnerability assessment and penetration testing support.',
+    category: 'Security',
+    image: '/assets/images/service/sccanner.webp',
+    slug: 'vulnerability-scanner-vapt',
+    order: 2,
+    status: 'active',
+  },
+  {
+    id: 's3',
+    title: 'Employee Monitoring Solution',
+    subtitle: 'User Activity Monitoring',
+    description: 'Track risky behavior, improve accountability and support compliance with secure user activity monitoring for enterprise teams.',
+    category: 'Monitoring',
+    image: '/assets/images/service/i-1.webp',
+    slug: 'employee-monitoring-solution',
+    order: 3,
+    status: 'active',
+  },
+  {
+    id: 's4',
+    title: 'Most Advanced Anti-Malware',
+    subtitle: 'Endpoint Protection',
+    description: 'Deploy next-generation anti-malware protection against ransomware, zero-day threats and known or unknown endpoint attacks.',
+    category: 'Security',
+    image: '/assets/images/service/malware.webp',
+    slug: 'advanced-anti-malware',
+    order: 4,
+    status: 'active',
+  },
+  {
+    id: 's5',
+    title: 'Backup & Disaster Recovery',
+    subtitle: 'Business Continuity',
+    description: 'Keep virtual, physical, cloud and SaaS workloads recoverable with resilient backup strategy and business continuity planning.',
+    category: 'Backup',
+    image: '/assets/images/service/backup.webp',
+    slug: 'backup-disaster-recovery',
+    order: 5,
+    status: 'active',
+  },
+  {
+    id: 's6',
+    title: 'Backup Solution for All Platforms',
+    subtitle: 'Cross-Platform Backup',
+    description: 'Choose scalable backup for endpoints, servers and enterprise environments with flexible licensing and strong return on investment.',
+    category: 'Backup',
+    image: '/assets/images/service/recovery.webp',
+    slug: 'backup-solution-all-platforms',
+    order: 6,
+    status: 'active',
+  },
+  {
+    id: 's7',
+    title: 'Data Leak Prevention DLP',
+    subtitle: 'Data Security',
+    description: 'Discover, monitor and prevent sensitive data exposure across endpoint, network and cloud channels before it leaves your control.',
+    category: 'Data Protection',
+    image: '/assets/images/service/pre.webp',
+    slug: 'data-leak-prevention-dlp',
+    order: 7,
+    status: 'active',
+  },
+  {
+    id: 's8',
+    title: 'Advanced Threat Prevention EDR | EPS',
+    subtitle: 'Endpoint Detection & Response',
+    description: 'Improve detection and response with layered endpoint defense built for targeted attacks, APTs and modern persistent threats.',
+    category: 'Security',
+    image: '/assets/images/service/lock.webp',
+    slug: 'advanced-threat-prevention-edr',
+    order: 8,
+    status: 'active',
+  },
+  {
+    id: 's9',
+    title: 'IAM | PAM | PSM & DBAM',
+    subtitle: 'Identity & Access Management',
+    description: 'Secure identities, privileged access and critical sessions with enterprise-grade access management and stronger control over sensitive systems.',
+    category: 'Identity',
+    image: '/assets/images/service/i-2.webp',
+    slug: 'iam-pam-psm-dbam',
+    order: 9,
+    status: 'active',
+  },
 ]
 
 export const MOCK_BRANDS: Brand[] = [
