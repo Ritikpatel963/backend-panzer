@@ -1,0 +1,43 @@
+
+> greevanext@0.1.0 dev
+> next dev -p 3003
+
+   ▲ Next.js 15.2.1
+   - Local:        http://localhost:3003
+   - Network:      http://192.168.1.13:3003
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling /settings/font ...
+ ✓ Compiled /settings/font in 11s (1325 modules)
+ GET /settings/font-size 404 in 11348ms
+ GET /settings/font 200 in 11581ms
+ ○ Compiling /settings/color-theme ...
+ ✓ Compiled /settings/color-theme in 1305ms (1289 modules)
+ GET /settings/color-theme 200 in 1894ms
+ ✓ Compiled in 463ms (620 modules)
+ ✓ Compiled in 841ms (630 modules)
+ ○ Compiling /settings/color-theme ...
+ ✓ Compiled /settings/color-theme in 540ms (659 modules)
+ GET /settings/color-theme 200 in 1384ms
+ GET /settings/color-theme 200 in 300ms
+ GET /settings/color-theme 200 in 2311ms
+ ○ Compiling /settings/font ...
+ ✓ Compiled /settings/font in 2.5s (659 modules)
+ GET /settings/font 200 in 3443ms
+ GET /settings/font 200 in 220ms
+ GET /settings/font 200 in 139ms
+ GET /settings/font 200 in 164ms
+ GET /settings/font 200 in 156ms
+ ✓ Compiled in 1097ms (1279 modules)
+ ✓ Compiled in 1084ms (1289 modules)
+ GET /settings/font 200 in 417ms
+ ✓ Compiled in 3.5s (620 modules)
+ ✓ Compiled in 483ms (620 modules)
+ ✓ Compiled in 322ms (620 modules)
+ ✓ Compiled in 291ms (620 modules)
+ ✓ Compiled in 313ms (620 modules)
+ ✓ Compiled in 271ms (620 modules)
+ ✓ Compiled in 475ms (620 modules)
+ ✓ Compiled in 562ms (630 modules)
+ ✓ Compiled in 972ms (620 modules)
